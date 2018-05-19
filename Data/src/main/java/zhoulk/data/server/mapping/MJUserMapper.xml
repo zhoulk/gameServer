@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间应该是对应接口的包名+类名 -->
+<mapper namespace="zhoulk.data.server.mapping.MJUserDao">
+    <!--id应该是接口中的方法，结果类型如没有配置别名则应该使用全名称 -->
+	<select id="getMJUserByUid" resultType="MJUser">
+	    select id,uid, headId, userId, gameId, exp, loveLines, userScore,
+	     userGold, userInsure, userBeans, faceId, gender, enable, nickName,
+	      pass, agentId, create_time, update_time
+	      from mj_user
+	      where uid = #{uid, jdbcType=VARCHAR}
+	</select>
+
+	<select id="getMJUserByUserIdAndPass" resultType="MJUser">
+		select id,uid, headId, userId, gameId, exp, loveLines, userScore,
+	     userGold, userInsure, userBeans, faceId, gender, enable, nickName,
+	      pass, agentId, create_time, update_time
+	      from mj_user
+	      where userId = #{userId, jdbcType=INTEGER}
+	      AND pass = #{password, jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insertMJUser" parameterType="MJUser" useGeneratedKeys="true" keyProperty="id">
+			INSERT INTO mj_user (uid, headId,
+								userId, gameId,
+								exp, loveLines,
+								userScore, userGold,
+								userInsure, userBeans,
+								faceId, gender,
+								enable, nickName,
+								pass, agentId)
+              VALUES   (#{uid},
+                          #{headId},
+                          #{userId},
+                          #{gameId},
+                          #{exp},
+                          #{loveLines},
+								#{userScore}, #{userGold},
+								#{userInsure}, #{userBeans},
+								#{faceId}, #{gender},
+								#{enable}, #{nickName},
+								#{pass}, #{agentId})
+	</insert>
+</mapper>
